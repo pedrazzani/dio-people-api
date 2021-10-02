@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /dio-person-api
+
+spring:
+  application:
+    name: dio-person-api
