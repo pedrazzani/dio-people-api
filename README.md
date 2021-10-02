@@ -1,1 +1,1 @@
-# dio-people-api
+# mazp-people-api
