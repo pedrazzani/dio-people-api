@@ -1,1 +1,1 @@
-# dio-people-api
+# dio-person-api
