@@ -31,7 +31,7 @@ public class PeopleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<PersonDto> create(@Valid @RequestBody PersonDto personDto) {
-        return ResponseEntity.ok(personService.createPerson(personDto));
+        return ResponseEntity.of(personService.createPerson(personDto));
     }
 
     @PutMapping("/{id}")

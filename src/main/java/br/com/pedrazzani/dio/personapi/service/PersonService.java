@@ -28,11 +28,11 @@ public class PersonService {
         return people.isEmpty() ? Optional.empty() : Optional.of(people);
     }
 
-    public PersonDto createPerson(PersonDto personDto) {
+    public Optional<PersonDto> createPerson(PersonDto personDto) {
         Person person = personMapper.toEntity(personDto);
         Person personSaved = personRepository.save(person);
-        log.info("Person created {}", personSaved);
-        return personMapper.fromEntity(personSaved);
+        log.info("Person created {}", person);
+        return Optional.of(personMapper.fromEntity(personSaved));
     }
 
     public Optional<PersonDto> findById(Long id) {
@@ -41,28 +41,23 @@ public class PersonService {
     }
 
     public void delete(Long id) {
-        boolean hasPerson = personRepository.existsById(id);
+        verifyIfExists(id);
 
-        if (hasPerson) {
-            personRepository.deleteById(id);
-            log.info("Person id {} deleted.", id);
-            return;
-        }
-
-        throw new NotFoundException();
+        personRepository.deleteById(id);
+        log.info("Person id {} deleted.", id);
     }
 
     public void update(Long id, PersonDto personDto) {
-        boolean hasPerson = personRepository.existsById(id);
+        verifyIfExists(id);
 
-        if (hasPerson) {
-            Person personToUpdate = personMapper.toEntity(personDto);
-            personToUpdate.setId(id);
-            personRepository.save(personToUpdate);
-            log.info("Person id {} updated.", id);
-            return;
-        }
+        Person personToUpdate = personMapper.toEntity(personDto);
+        personToUpdate.setId(id);
+        personRepository.save(personToUpdate);
+        log.info("Person id {} updated.", id);
+    }
 
-        throw new NotFoundException();
+    public Person verifyIfExists(Long id) {
+        return personRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
     }
 }
