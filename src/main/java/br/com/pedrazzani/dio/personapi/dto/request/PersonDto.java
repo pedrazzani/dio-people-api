@@ -3,9 +3,7 @@ package br.com.pedrazzani.dio.personapi.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.Valid;
@@ -15,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDto {

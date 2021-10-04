@@ -2,6 +2,7 @@ package br.com.pedrazzani.dio.personapi.entity;
 
 import br.com.pedrazzani.dio.personapi.enums.PhoneType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

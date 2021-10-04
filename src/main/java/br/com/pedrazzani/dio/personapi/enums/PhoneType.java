@@ -1,8 +1,5 @@
 package br.com.pedrazzani.dio.personapi.enums;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 public enum PhoneType {
 
     HOME("Home"),

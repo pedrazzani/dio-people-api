@@ -3,7 +3,7 @@ package br.com.pedrazzani.dio.personapi.service;
 import br.com.pedrazzani.dio.personapi.dto.mapper.PersonMapper;
 import br.com.pedrazzani.dio.personapi.dto.request.PersonDto;
 import br.com.pedrazzani.dio.personapi.entity.Person;
-import br.com.pedrazzani.dio.personapi.exception.NotFoundException;
+import br.com.pedrazzani.dio.personapi.exception.PersonNotFoundException;
 import br.com.pedrazzani.dio.personapi.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +24,15 @@ public class PersonService {
     public Optional<List<PersonDto>> findAll() {
         List<PersonDto> people = personRepository.findAll().stream()
                 .map(personMapper::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
         return people.isEmpty() ? Optional.empty() : Optional.of(people);
     }
 
     public Optional<PersonDto> createPerson(PersonDto personDto) {
-        Person person = personMapper.toEntity(personDto);
-        Person personSaved = personRepository.save(person);
-        log.info("Person created {}", person);
-        return Optional.of(personMapper.fromEntity(personSaved));
+        return Optional.ofNullable(personDto)
+                .map(personMapper::toEntity)
+                .map(personRepository::save)
+                .map(personMapper::fromEntity);
     }
 
     public Optional<PersonDto> findById(Long id) {
@@ -56,8 +56,8 @@ public class PersonService {
         log.info("Person id {} updated.", id);
     }
 
-    public Person verifyIfExists(Long id) {
+    private Person verifyIfExists(Long id) {
         return personRepository.findById(id)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(PersonNotFoundException::new);
     }
 }

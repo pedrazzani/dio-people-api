@@ -1,7 +1,6 @@
 package br.com.pedrazzani.dio.personapi.controller;
 
 import br.com.pedrazzani.dio.personapi.dto.request.PersonDto;
-import br.com.pedrazzani.dio.personapi.dto.response.MessageResponseDto;
 import br.com.pedrazzani.dio.personapi.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
